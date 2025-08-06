@@ -1,3 +1,5 @@
+<!-- ============= ZARYON: Proyecto en un solo archivo ============== -->
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,15 +7,136 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zaryon</title>
 
-  <!-- Fuente -->
+  <!-- ======================= FUENTES ======================= -->
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
 
-  <!-- Estilos -->
-  <link rel="stylesheet" href="style.css" />
+  <!-- ======================== CSS ========================== -->
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    header {
+      background-color: #f57c2a;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 1.5em;
+    }
+
+    nav a {
+      margin: 0 10px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .main {
+      display: flex;
+      padding: 20px;
+    }
+
+    .feed {
+      flex: 3;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 15px;
+      padding: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .card-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .sidebar {
+      flex: 1;
+      margin-left: 20px;
+      background-color: white;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+    }
+
+    .follow-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .follow-item img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .follow-name {
+      font-weight: bold;
+    }
+
+    .notification {
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      border-radius: 50%;
+      margin-left: auto;
+    }
+
+    .create-post {
+      background-color: white;
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin: 20px;
+    }
+
+    .create-post input {
+      display: block;
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .create-post button {
+      background-color: #f57c2a;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- HEADER -->
+  <!-- ======================= HTML ======================== -->
+
+  <!-- Encabezado -->
   <header>
     <div class="logo">🤍 Zaryon</div>
     <nav>
@@ -24,7 +147,7 @@
     </nav>
   </header>
 
-  <!-- FORMULARIO PARA NUEVAS PUBLICACIONES -->
+  <!-- Crear nueva publicación -->
   <section class="create-post">
     <h2>Crear nueva publicación</h2>
     <input type="text" id="titulo" placeholder="Título de la publicación" />
@@ -32,16 +155,15 @@
     <button id="publicar">Publicar</button>
   </section>
 
-  <!-- MAIN -->
+  <!-- Contenido principal -->
   <div class="main">
-    <!-- FEED -->
-    <div class="feed" id="feed">
-      <!-- Aquí se insertarán dinámicamente las publicaciones -->
-    </div>
+    <!-- Feed de publicaciones -->
+    <div class="feed" id="feed"></div>
 
-    <!-- SIDEBAR -->
+    <!-- Barra lateral -->
     <div class="sidebar">
       <h3>Siguiendo:</h3>
+
       <div class="follow-item">
         <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Carlos">
         <div>
@@ -49,6 +171,7 @@
           <div>Modistería el gato</div>
         </div>
       </div>
+
       <div class="follow-item">
         <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Juan">
         <div>
@@ -57,6 +180,7 @@
         </div>
         <div class="notification"></div>
       </div>
+
       <div class="follow-item">
         <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="Daniel">
         <div>
@@ -67,8 +191,64 @@
     </div>
   </div>
 
-  <!-- SCRIPTS -->
-  <script src="posts.js"></script>
-  <script src="script.js"></script>
+  <!-- ======================== JS ========================= -->
+  <script>
+    function renderPost(post, prepend = false) {
+      const feed = document.getElementById('feed');
+
+      const card = document.createElement('div');
+      card.classList.add('card');
+
+      const title = document.createElement('div');
+      title.classList.add('card-title');
+      title.textContent = post.titulo;
+
+      const img = document.createElement('img');
+      img.src = post.imagen;
+      img.alt = post.titulo;
+
+      card.appendChild(title);
+      card.appendChild(img);
+
+      if (prepend) {
+        feed.prepend(card);
+      } else {
+        feed.appendChild(card);
+      }
+    }
+
+    function guardarPost(post) {
+      let postsGuardados = JSON.parse(localStorage.getItem('posts')) || [];
+      postsGuardados.unshift(post);
+      localStorage.setItem('posts', JSON.stringify(postsGuardados));
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const postsGuardados = JSON.parse(localStorage.getItem('posts')) || [];
+
+      postsGuardados.forEach(post => {
+        renderPost(post);
+      });
+
+      const publicarBtn = document.getElementById('publicar');
+      if (publicarBtn) {
+        publicarBtn.addEventListener('click', () => {
+          const titulo = document.getElementById('titulo').value.trim();
+          const imagen = document.getElementById('imagen').value.trim();
+
+          if (titulo && imagen) {
+            const nuevoPost = { titulo, imagen };
+            renderPost(nuevoPost, true);
+            guardarPost(nuevoPost);
+            document.getElementById('titulo').value = '';
+            document.getElementById('imagen').value = '';
+          } else {
+            alert("Por favor, completá el título y la imagen.");
+          }
+        });
+      }
+    });
+  </script>
+
 </body>
 </html>
