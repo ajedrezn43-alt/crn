@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zaryon</title>
+
+  <!-- Fuente -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">🤍 Zaryon</div>
+    <nav>
+      <a href="#">Siguiendo</a>
+      <a href="#">Últimas compras</a>
+      <a href="#">Más vistos</a>
+      🔍
+    </nav>
+  </header>
+
+  <!-- FORMULARIO PARA NUEVAS PUBLICACIONES -->
+  <section class="create-post">
+    <h2>Crear nueva publicación</h2>
+    <input type="text" id="titulo" placeholder="Título de la publicación" />
+    <input type="text" id="imagen" placeholder="URL de la imagen" />
+    <button id="publicar">Publicar</button>
+  </section>
+
+  <!-- MAIN -->
+  <div class="main">
+    <!-- FEED -->
+    <div class="feed" id="feed">
+      <!-- Aquí se insertarán dinámicamente las publicaciones -->
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <h3>Siguiendo:</h3>
+      <div class="follow-item">
+        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Carlos">
+        <div>
+          <div class="follow-name">Carlos</div>
+          <div>Modistería el gato</div>
+        </div>
+      </div>
+      <div class="follow-item">
+        <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Juan">
+        <div>
+          <div class="follow-name">Juan</div>
+          <div>Floristería el tigre</div>
+        </div>
+        <div class="notification"></div>
+      </div>
+      <div class="follow-item">
+        <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="Daniel">
+        <div>
+          <div class="follow-name">Daniel</div>
+          <div>Cerámica el león</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="posts.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
