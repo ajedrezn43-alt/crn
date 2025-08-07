@@ -1,254 +1,153 @@
-<!-- ============= ZARYON: Proyecto en un solo archivo ============== -->
-
+<!-- =============Cosas que creo necesarias============== -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zaryon</title>
+  <meta charset="UTF-8">
+  <title>Mi página web</title>
 
-  <!-- ======================= FUENTES ======================= -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+  <!-- ================================================= -->
+  <!-- ====================FUENTES====================== -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
-  <!-- ======================== CSS ========================== -->
+  <!-- ================================================= -->
+  <!-- ======================CSS======================== -->
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: 'Inter', sans-serif;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
       background-color: #f5f5f5;
     }
 
     header {
-      background-color: #f57c2a;
+      background-color: #222;
       color: white;
+      padding: 15px 30px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 20px;
     }
 
     .logo {
+      font-size: 20px;
       font-weight: bold;
-      font-size: 1.5em;
+      cursor: pointer;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
     }
 
     nav a {
-      margin: 0 10px;
       color: white;
       text-decoration: none;
-      font-weight: bold;
+      font-size: 16px;
+      transition: color 0.2s ease;
     }
 
-    .main {
-      display: flex;
-      padding: 20px;
+    nav a:hover {
+      color: #ffcc00;
     }
 
-    .feed {
-      flex: 3;
+    .search {
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    main {
+      padding: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
     }
 
     .card {
       background-color: white;
-      border-radius: 15px;
-      padding: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
     }
 
     .card img {
       width: 100%;
-      border-radius: 10px;
+      height: 180px;
+      object-fit: cover;
     }
 
-    .card-title {
-      font-weight: bold;
+    .card-content {
+      padding: 15px;
+    }
+
+    .card-content h3 {
       margin-bottom: 10px;
+      font-size: 18px;
+      color: #333;
     }
 
-    .sidebar {
-      flex: 1;
-      margin-left: 20px;
-      background-color: white;
-      border-radius: 15px;
-      padding: 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    .sidebar h3 {
-      margin-top: 0;
-    }
-
-    .follow-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .follow-item img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-
-    .follow-name {
-      font-weight: bold;
-    }
-
-    .notification {
-      width: 10px;
-      height: 10px;
-      background-color: red;
-      border-radius: 50%;
-      margin-left: auto;
-    }
-
-    .create-post {
-      background-color: white;
-      padding: 15px;
-      border-radius: 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      margin: 20px;
-    }
-
-    .create-post input {
-      display: block;
-      width: 100%;
-      padding: 8px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-
-    .create-post button {
-      background-color: #f57c2a;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
+    .card-content p {
+      font-size: 14px;
+      color: #666;
     }
   </style>
+
+  <!-- ================================================= -->
+  <!-- ======================HTML======================= -->
 </head>
 <body>
 
-  <!-- ======================= HTML ======================== -->
-
-  <!-- Encabezado -->
   <header>
-    <div class="logo">🤍 Zaryon</div>
+    <div class="logo">LOGO</div>
     <nav>
-      <a href="#">Siguiendo</a>
-      <a href="#">Últimas compras</a>
-      <a href="#">Más vistos</a>
-      🔍
+      <a href="#">Productos</a>
+      <a href="#">Conócenos</a>
+      <a href="#">Novedades</a>
     </nav>
+    <div class="search">🔍</div>
   </header>
 
-  <!-- Crear nueva publicación -->
-  <section class="create-post">
-    <h2>Crear nueva publicación</h2>
-    <input type="text" id="titulo" placeholder="Título de la publicación" />
-    <input type="text" id="imagen" placeholder="URL de la imagen" />
-    <button id="publicar">Publicar</button>
-  </section>
-
-  <!-- Contenido principal -->
-  <div class="main">
-    <!-- Feed de publicaciones -->
-    <div class="feed" id="feed"></div>
-
-    <!-- Barra lateral -->
-    <div class="sidebar">
-      <h3>Siguiendo:</h3>
-
-      <div class="follow-item">
-        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Carlos">
-        <div>
-          <div class="follow-name">Carlos</div>
-          <div>Modistería el gato</div>
-        </div>
-      </div>
-
-      <div class="follow-item">
-        <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Juan">
-        <div>
-          <div class="follow-name">Juan</div>
-          <div>Floristería el tigre</div>
-        </div>
-        <div class="notification"></div>
-      </div>
-
-      <div class="follow-item">
-        <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="Daniel">
-        <div>
-          <div class="follow-name">Daniel</div>
-          <div>Cerámica el león</div>
-        </div>
+  <main>
+    <div class="card">
+      <img src="https://via.placeholder.com/300x180?text=Cámara+1" alt="Cámara 1">
+      <div class="card-content">
+        <h3>Cámara Profesional X1</h3>
+        <p>Alta resolución, zoom óptico 20x. Ideal para fotógrafos.</p>
       </div>
     </div>
-  </div>
 
-  <!-- ======================== JS ========================= -->
+    <div class="card">
+      <img src="https://via.placeholder.com/300x180?text=Cámara+2" alt="Cámara 2">
+      <div class="card-content">
+        <h3>Cámara Compacta Z2</h3>
+        <p>Ligera y fácil de usar. Perfecta para viajes espontáneos.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://via.placeholder.com/300x180?text=Cámara+3" alt="Cámara 3">
+      <div class="card-content">
+        <h3>Cámara Clásico R3</h3>
+        <p>Diseño clásico con tecnología moderna. Estilo y calidad.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================================================= -->
+  <!-- ======================JS========================= -->
   <script>
-    function renderPost(post, prepend = false) {
-      const feed = document.getElementById('feed');
-
-      const card = document.createElement('div');
-      card.classList.add('card');
-
-      const title = document.createElement('div');
-      title.classList.add('card-title');
-      title.textContent = post.titulo;
-
-      const img = document.createElement('img');
-      img.src = post.imagen;
-      img.alt = post.titulo;
-
-      card.appendChild(title);
-      card.appendChild(img);
-
-      if (prepend) {
-        feed.prepend(card);
-      } else {
-        feed.appendChild(card);
-      }
-    }
-
-    function guardarPost(post) {
-      let postsGuardados = JSON.parse(localStorage.getItem('posts')) || [];
-      postsGuardados.unshift(post);
-      localStorage.setItem('posts', JSON.stringify(postsGuardados));
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const postsGuardados = JSON.parse(localStorage.getItem('posts')) || [];
-
-      postsGuardados.forEach(post => {
-        renderPost(post);
-      });
-
-      const publicarBtn = document.getElementById('publicar');
-      if (publicarBtn) {
-        publicarBtn.addEventListener('click', () => {
-          const titulo = document.getElementById('titulo').value.trim();
-          const imagen = document.getElementById('imagen').value.trim();
-
-          if (titulo && imagen) {
-            const nuevoPost = { titulo, imagen };
-            renderPost(nuevoPost, true);
-            guardarPost(nuevoPost);
-            document.getElementById('titulo').value = '';
-            document.getElementById('imagen').value = '';
-          } else {
-            alert("Por favor, completá el título y la imagen.");
-          }
-        });
-      }
-    });
+    
+    console.log("Página cargada correctamente.");
   </script>
 
+  <!-- ================================================= --> 
 </body>
 </html>
