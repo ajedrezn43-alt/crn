@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Octofix - SPA Simple con Barra Lateral</title>
+  <title>Octofix - SPA Simple</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,700;1,400&display=swap');
     :root {
@@ -18,30 +18,29 @@
       font-family: var(--font-family);
       background: var(--white-base);
       color: var(--black-base);
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
+      margin: 0;
       display: flex;
-      flex-direction: column;
       min-height: 100vh;
-      position: relative;
-      /* Para que no se solape con barra lateral */
-      padding-left: 120px; /* ancho barra lateral + algo */
     }
-    /* Barra lateral izquierda con imagen original, pegada arriba-abajo, fija */
-    .barra-lateral {
+    /* Imagen fija a la izquierda, cubre toda la altura */
+    #side-image {
       position: fixed;
       top: 0;
       left: 0;
-      width: 120px;
+      width: 200px; /* ajusta si quieres */
       height: 100vh;
-      background-image: url('https://user.uploads.dev/file/a5733707aab7e3cc80e729a5bcedd360.png');
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-position: top left;
-      /* si quieres que se estire: */
-      background-size: 100% 100%;
-      z-index: 999;
+      object-fit: cover;
+      z-index: 1;
+    }
+    /* Contenedor de contenido, desplazado a la derecha para no tapar la imagen */
+    #content-wrapper {
+      margin-left: 200px; /* igual al ancho de la imagen */
+      padding: 2rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 1000px;
+      box-sizing: border-box;
     }
 
     header {
@@ -52,12 +51,15 @@
       padding-bottom: 1rem;
       margin-bottom: 2rem;
       gap: 1rem;
+      z-index: 2;
+      position: relative;
     }
     .logo-title {
       display: flex;
       align-items: center;
       gap: 1rem;
       cursor: pointer;
+      user-select: none;
     }
     .logo-title img {
       width: 80px;
@@ -94,6 +96,8 @@
     main {
       flex-grow: 1;
       min-height: 60vh;
+      z-index: 2;
+      position: relative;
     }
     /* Producto único */
     .producto-unico {
@@ -132,6 +136,7 @@
       font-size: 1rem;
       color: #5a3f00;
       line-height: 1.4;
+      margin-bottom: 1rem;
     }
     /* Botón saber más separado */
     #btn-saber-mas {
@@ -178,20 +183,6 @@
       object-fit: contain;
       border-radius: 8px;
     }
-    .producto-info {
-      flex: 1;
-    }
-    .producto-info h3 {
-      color: var(--orange-base);
-      font-weight: 700;
-      font-size: 1.3rem;
-      margin-bottom: 0.3rem;
-    }
-    .producto-info p {
-      font-size: 1rem;
-      color: #5a3f00;
-      line-height: 1.4;
-    }
     /* Secciones Conócenos y Novedades */
     section {
       max-width: 700px;
@@ -200,23 +191,23 @@
       margin-bottom: 3rem;
       margin-left: auto;
       margin-right: auto;
-      position: relative;
-      padding-bottom: 1.5rem;
-      border-bottom: 40px solid transparent; /* espacio para imagen espejo */
-      background-repeat: no-repeat;
-      background-position: bottom center;
-      background-size: contain;
     }
-    /* Imagen espejo horizontal usada como separador de secciones */
-    section.catalogo,
-    section.conocenos,
-    section.novedades {
-      background-image: url('https://user.uploads.dev/file/a5733707aab7e3cc80e729a5bcedd360.png');
-      /* espejo horizontal con filtro CSS */
-      transform: scaleX(-1);
-      background-repeat: no-repeat;
-      background-position: bottom center;
-      background-size: contain;
+    section h2 {
+      color: var(--blue-base);
+      font-weight: 700;
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      border-left: 6px solid var(--orange-base);
+      padding-left: 0.8rem;
+    }
+    ul.novedades-list {
+      list-style: disc;
+      padding-left: 1.5rem;
+    }
+    ul.novedades-list li {
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+      color: var(--black-base);
     }
     /* Footer */
     footer {
@@ -227,16 +218,21 @@
       font-size: 0.9rem;
       color: #555;
       user-select: none;
+      z-index: 2;
       position: relative;
-      z-index: 10;
     }
     footer p {
       margin-bottom: 0.3rem;
     }
     /* Responsive */
     @media (max-width: 600px) {
-      body {
-        padding-left: 100px;
+      #side-image {
+        display: none;
+      }
+      #content-wrapper {
+        margin-left: 0;
+        padding: 1rem;
+        max-width: 100%;
       }
       header {
         flex-direction: column;
@@ -256,153 +252,153 @@
       .producto-info {
         flex: none;
       }
-      .barra-lateral {
-        width: 80px;
-        padding-left: 80px;
-      }
     }
   </style>
 </head>
 <body>
 
-<div class="barra-lateral" aria-hidden="true"></div>
+  <!-- Imagen fija a la izquierda -->
+  <img id="side-image" src="https://user.uploads.dev/file/a5733707aab7e3cc80e729a5bcedd360.png" alt="Imagen lateral decorativa" />
 
-<header>
-  <div class="logo-title" role="button" tabindex="0" aria-label="Volver al inicio">
-    <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Isotipo Octofix" />
-    <h1>Octofix</h1>
+  <!-- Contenedor de contenido principal -->
+  <div id="content-wrapper">
+
+    <header>
+      <div class="logo-title" role="button" tabindex="0" aria-label="Volver al inicio">
+        <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Isotipo Octofix" />
+        <h1>Octofix</h1>
+      </div>
+      <nav aria-label="Navegación principal">
+        <button id="btn-productos" class="active" aria-controls="contenido" aria-selected="true">Catálogo</button>
+        <button id="btn-conocenos" aria-controls="contenido" aria-selected="false">Conócenos</button>
+        <button id="btn-novedades" aria-controls="contenido" aria-selected="false">Novedades</button>
+      </nav>
+    </header>
+
+    <main id="contenido" tabindex="-1">
+      <!-- Contenido inicial: producto único -->
+      <article class="producto-unico" tabindex="0">
+        <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto Reparación de camas" />
+        <div class="producto-info">
+          <h3>Reparación de camas</h3>
+          <p>Validación y reparación de camas, para asegurar un excelente descanso.</p>
+        </div>
+      </article>
+      <button id="btn-saber-mas" class="btn-primary" type="button" aria-label="Ver catálogo completo de productos">Saber más</button>
+    </main>
+
+    <footer>
+      <p><strong>Octofix</strong></p>
+      <p>Teléfono: (000) 123-4567</p>
+      <p>Dirección: Calle Falsa 123, Ciudad Ejemplo</p>
+    </footer>
+
   </div>
-  <nav aria-label="Navegación principal">
-    <button id="btn-productos" class="active" aria-controls="contenido" aria-selected="true">Catálogo</button>
-    <button id="btn-conocenos" aria-controls="contenido" aria-selected="false">Conócenos</button>
-    <button id="btn-novedades" aria-controls="contenido" aria-selected="false">Novedades</button>
-  </nav>
-</header>
 
-<main id="contenido" tabindex="-1">
-  <!-- Producto único en main -->
-  <article class="producto-unico" tabindex="0">
-    <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto Reparación de camas" />
-    <div class="producto-info">
-      <h3>Reparación de camas</h3>
-      <p>Validación y reparación de camas, para asegurar un excelente descanso.</p>
-    </div>
-  </article>
-  <button id="btn-saber-mas" class="btn-primary" type="button" aria-label="Ver catálogo completo de productos">Saber más</button>
-</main>
+  <script>
+    const btnProductos = document.getElementById('btn-productos');
+    const btnConocenos = document.getElementById('btn-conocenos');
+    const btnNovedades = document.getElementById('btn-novedades');
+    const contenido = document.getElementById('contenido');
+    const logoTitle = document.querySelector('.logo-title');
 
-<footer>
-  <p><strong>Octofix</strong></p>
-  <p>Teléfono: (000) 123-4567</p>
-  <p>Dirección: Calle Falsa 123, Ciudad Ejemplo</p>
-</footer>
+    // Contenidos
+    const mainProductoUnico = `
+      <article class="producto-unico" tabindex="0">
+        <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto Reparación de camas" />
+        <div class="producto-info">
+          <h3>Reparación de camas</h3>
+          <p>Validación y reparación de camas, para asegurar un excelente descanso.</p>
+        </div>
+      </article>
+      <button id="btn-saber-mas" class="btn-primary" type="button" aria-label="Ver catálogo completo de productos">Saber más</button>
+    `;
 
-<script>
-  const btnProductos = document.getElementById('btn-productos');
-  const btnConocenos = document.getElementById('btn-conocenos');
-  const btnNovedades = document.getElementById('btn-novedades');
-  const contenido = document.getElementById('contenido');
-  const btnSaberMas = document.getElementById('btn-saber-mas');
-  const logoTitle = document.querySelector('.logo-title');
+    const catalogoHTML = `
+      <section aria-labelledby="titulo-productos" tabindex="0">
+        <h2 id="titulo-productos">Catálogo de Productos</h2>
+        <div class="productos-list" role="list">
+          <article class="producto-card" role="listitem" tabindex="0">
+            <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto Reparación de camas" />
+            <div class="producto-info">
+              <h3>Reparación de camas</h3>
+              <p>Validación y reparación de camas, para asegurar un excelente descanso.</p>
+            </div>
+          </article>
+          <article class="producto-card" role="listitem" tabindex="0">
+            <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto Reparación de armarios" />
+            <div class="producto-info">
+              <h3>Reparación de armarios</h3>
+              <p>Validación y reparación de armarios, asegurando calidad y durabilidad.</p>
+            </div>
+          </article>
+          <article class="producto-card" role="listitem" tabindex="0">
+            <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto Reparación de sillas" />
+            <div class="producto-info">
+              <h3>Reparación de sillas</h3>
+              <p>Validación y reparación de sillas, con excelencia y profesionalismo.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+    `;
 
-  // Contenidos
-  const mainProductoUnico = `
-    <article class="producto-unico" tabindex="0">
-      <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto Reparación de camas" />
-      <div class="producto-info">
-        <h3>Reparación de camas</h3>
-        <p>Validación y reparación de camas, para asegurar un excelente descanso.</p>
-      </div>
-    </article>
-    <button id="btn-saber-mas" class="btn-primary" type="button" aria-label="Ver catálogo completo de productos">Saber más</button>
-  `;
+    const conocenosHTML = `
+      <section aria-labelledby="titulo-conocenos" tabindex="0" style="max-width:700px; margin: 0 auto;">
+        <h2 id="titulo-conocenos">Conócenos</h2>
+        <p>
+          En Octofix somos un equipo apasionado por la reparación y la innovación, dedicados a ofrecer soluciones integrales
+          con calidad y confianza.
+        </p>
+      </section>
+    `;
 
-  const catalogoHTML = `
-    <section class="catalogo" aria-labelledby="titulo-productos" tabindex="0">
-      <h2 id="titulo-productos">Catálogo de Productos</h2>
-      <div class="productos-list" role="list">
-        <article class="producto-card" role="listitem" tabindex="0">
-          <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto Reparación de camas" />
-          <div class="producto-info">
-            <h3>Reparación de camas</h3>
-            <p>Validación y reparación de camas, para asegurar un excelente descanso.</p>
-          </div>
-        </article>
-        <article class="producto-card" role="listitem" tabindex="0">
-          <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto Reparación de armarios" />
-          <div class="producto-info">
-            <h3>Reparación de armarios</h3>
-            <p>Validación y reparación de armarios, asegurando calidad y durabilidad.</p>
-          </div>
-        </article>
-        <article class="producto-card" role="listitem" tabindex="0">
-          <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto Reparación de sillas" />
-          <div class="producto-info">
-            <h3>Reparación de sillas</h3>
-            <p>Validación y reparación de sillas, con excelencia y profesionalismo.</p>
-          </div>
-        </article>
-      </div>
-    </section>
-  `;
+    const novedadesHTML = `
+      <section aria-labelledby="titulo-novedades" tabindex="0" style="max-width:700px; margin: 0 auto;">
+        <h2 id="titulo-novedades">Novedades</h2>
+        <ul class="novedades-list">
+          <li>Novedad 1: Nuevo servicio de reparación express.</li>
+          <li>Novedad 2: Incorporamos técnicas sostenibles en nuestras reparaciones.</li>
+          <li>Novedad 3: Ampliamos nuestro horario de atención para ti.</li>
+        </ul>
+      </section>
+    `;
 
-  const conocenosHTML = `
-    <section class="conocenos" aria-labelledby="titulo-conocenos" tabindex="0" style="max-width:700px; margin: 0 auto;">
-      <h2 id="titulo-conocenos">Conócenos</h2>
-      <p>
-        En Octofix somos un equipo apasionado por la reparación y la innovación, dedicados a ofrecer soluciones integrales
-        con calidad y confianza.
-      </p>
-    </section>
-  `;
+    function cambiarContenido(html, btnSeleccionado) {
+      contenido.innerHTML = html;
+      contenido.focus();
 
-  const novedadesHTML = `
-    <section class="novedades" aria-labelledby="titulo-novedades" tabindex="0" style="max-width:700px; margin: 0 auto;">
-      <h2 id="titulo-novedades">Novedades</h2>
-      <ul class="novedades-list">
-        <li>Novedad 1: Nuevo servicio de reparación express.</li>
-        <li>Novedad 2: Incorporamos técnicas sostenibles en nuestras reparaciones.</li>
-        <li>Novedad 3: Ampliamos nuestro horario de atención para ti.</li>
-      </ul>
-    </section>
-  `;
+      const nuevoBtnSaberMas = document.getElementById('btn-saber-mas');
+      if (nuevoBtnSaberMas) {
+        nuevoBtnSaberMas.addEventListener('click', () => cambiarContenido(catalogoHTML, btnProductos));
+      }
 
-  function cambiarContenido(html, btnSeleccionado) {
-    contenido.innerHTML = html;
-    contenido.focus();
-
-    // Para que btnSaberMas funcione en main
-    const nuevoBtnSaberMas = document.getElementById('btn-saber-mas');
-    if (nuevoBtnSaberMas) {
-      nuevoBtnSaberMas.addEventListener('click', () => cambiarContenido(catalogoHTML, btnProductos));
+      [btnProductos, btnConocenos, btnNovedades].forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+      btnSeleccionado.classList.add('active');
+      btnSeleccionado.setAttribute('aria-selected', 'true');
     }
 
-    [btnProductos, btnConocenos, btnNovedades].forEach(btn => {
-      btn.classList.remove('active');
-      btn.setAttribute('aria-selected', 'false');
+    btnProductos.addEventListener('click', () => cambiarContenido(catalogoHTML, btnProductos));
+    btnConocenos.addEventListener('click', () => cambiarContenido(conocenosHTML, btnConocenos));
+    btnNovedades.addEventListener('click', () => cambiarContenido(novedadesHTML, btnNovedades));
+
+    logoTitle.addEventListener('click', () => cambiarContenido(mainProductoUnico, btnProductos));
+    logoTitle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        cambiarContenido(mainProductoUnico, btnProductos);
+      }
     });
-    btnSeleccionado.classList.add('active');
-    btnSeleccionado.setAttribute('aria-selected', 'true');
-  }
 
-  btnProductos.addEventListener('click', () => cambiarContenido(catalogoHTML, btnProductos));
-  btnConocenos.addEventListener('click', () => cambiarContenido(conocenosHTML, btnConocenos));
-  btnNovedades.addEventListener('click', () => cambiarContenido(novedadesHTML, btnNovedades));
-
-  btnSaberMas.addEventListener('click', () => {
-    cambiarContenido(catalogoHTML, btnProductos);
-  });
-
-  logoTitle.addEventListener('click', () => {
-    cambiarContenido(mainProductoUnico, btnProductos);
-  });
-  logoTitle.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      cambiarContenido(mainProductoUnico, btnProductos);
+    // Botón saber más inicial
+    const btnSaberMas = document.getElementById('btn-saber-mas');
+    if (btnSaberMas) {
+      btnSaberMas.addEventListener('click', () => cambiarContenido(catalogoHTML, btnProductos));
     }
-  });
-</script>
+  </script>
 
 </body>
 </html>
