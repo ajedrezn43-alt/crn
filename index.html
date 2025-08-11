@@ -8,66 +8,25 @@
   <!-- ================================================= -->
   <!-- ======================CSS======================== -->
   <style>
-    /* Importamos tipografía Rubik desde Google Fonts */
     @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,700;1,400&display=swap');
 
-    /* Variables CSS para la paleta Octofix */
     :root {
-      /* Naranjas */
       --orange-base: #fe9914;
       --orange-light: #ffc61a;
       --orange-dark: #b16b0e;
-      --orange-ent-light: #ffaf17;
-      --orange-ent-dark: #d78211;
 
-      /* Azules */
       --blue-base: #0762ac;
       --blue-light: #097fdf;
-      --blue-dark: #044478;
-      --blue-ent-light: #0870c5;
-      --blue-ent-dark: #055392;
 
-      /* Marrones */
       --brown-dark-base: #8a4c0f;
-      --brown-dark-light: #b36213;
-      --brown-dark-dark: #60350a;
-      --brown-dark-ent-light: #9e5711;
-      --brown-dark-ent-dark: #75400c;
-
       --brown-light-base: #af6318;
-      --brown-light-light: #e3801f;
-      --brown-light-dark: #7a4510;
-      --brown-light-ent-light: #c9711b;
-      --brown-light-ent-dark: #945414;
 
-      /* Blanco */
       --white-base: #fff2e5;
-      --white-light: #ffffff;
-      --white-dark: #b2a9a0;
-      --white-ent-light: #ffffff;
-      --white-ent-dark: #d8cdc2;
-
-      /* Plateado */
-      --silver-base: #808080;
-      --silver-light: #a6a6a6;
-      --silver-dark: #595959;
-      --silver-ent-light: #939393;
-      --silver-ent-dark: #6d6d6d;
-
-      /* Negro */
       --black-base: #000000;
-      --black-light: #333333;
-      --black-ent-light: #2b2b2b;
-      --black-ent-dark: #000000;
-
-      /* Otros */
-      --background-light: var(--white-base);
-      --background-dark: var(--black-ent-light);
 
       --font-family: 'Rubik', sans-serif;
     }
 
-    /* Reset básico y base */
     * {
       margin: 0;
       padding: 0;
@@ -76,119 +35,166 @@
 
     body {
       font-family: var(--font-family);
-      background-color: var(--background-light);
+      background-color: var(--white-base);
       color: var(--black-base);
       line-height: 1.5;
       padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      min-height: 100vh;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      border-bottom: 2px solid var(--orange-base);
+      padding-bottom: 1rem;
     }
 
-    /* Área de respeto isotipo: 30% margen alrededor */
-    .isotipo-wrapper {
-      position: relative;
-      width: 200px; /* tamaño base isotipo */
-      height: 200px;
-      margin-bottom: 2rem;
-      padding: 30%; /* para el área de respeto */
-      background-color: var(--orange-ent-light);
-      border: 2px solid var(--orange-dark);
-      border-radius: 1rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    header img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
     }
 
-    /* Isotipo SVG - Pulpo simplificado */
-    svg.octopus {
-      width: 100px;
-      height: 100px;
-      fill: var(--orange-base);
-      stroke: var(--brown-dark-base);
-      stroke-width: 2px;
-    }
-
-    /* Sombras y bordes para la gorra azul */
-    .hat {
-      fill: var(--blue-base);
-      stroke: var(--black-base);
-      stroke-width: 1.5px;
-    }
-
-    /* Ojos: marrón claro y blanco */
-    .eye-outer {
-      fill: var(--brown-light-base);
-      stroke: var(--black-base);
-      stroke-width: 0.8px;
-    }
-    .eye-inner {
-      fill: var(--white-base);
-    }
-
-    /* Herramientas plateadas */
-    .tool {
-      fill: var(--silver-base);
-      stroke: var(--black-base);
-      stroke-width: 1px;
-    }
-
-    /* Títulos */
-    h1 {
+    header h1 {
       color: var(--orange-base);
       font-weight: 700;
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      text-align: center;
+      font-size: 2.8rem;
+    }
+
+    nav {
+      margin-bottom: 3rem;
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      border-bottom: 1px solid var(--brown-light-base);
+      padding-bottom: 0.5rem;
+    }
+
+    nav a {
+      color: var(--blue-base);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.3rem 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    nav a:hover {
+      background-color: var(--blue-light);
+      color: var(--white-base);
+    }
+
+    section {
+      margin-bottom: 3rem;
     }
 
     h2 {
       color: var(--blue-base);
       font-weight: 700;
-      font-size: 1.8rem;
-      margin-bottom: 0.8rem;
-    }
-
-    h3 {
-      color: var(--brown-dark-base);
-      font-weight: 600;
-      font-size: 1.3rem;
-      margin-bottom: 0.6rem;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      border-left: 6px solid var(--orange-base);
+      padding-left: 0.8rem;
     }
 
     p {
-      color: var(--black-base);
-      max-width: 600px;
-      margin-bottom: 1rem;
-      text-align: justify;
-    }
-
-    /* Entramado claro - patrón SVG */
-    .pattern-light {
-      background-color: var(--orange-ent-light);
-      background-image: radial-gradient(circle at center, var(--orange-ent-dark) 1px, transparent 2px);
-      background-size: 10px 10px;
-      padding: 1rem 2rem;
-      border-radius: 0.7rem;
-      margin: 2rem 0;
       max-width: 700px;
+      text-align: justify;
+      margin-bottom: 1rem;
     }
 
-    /* Botón ejemplo usando paleta */
+    /* Productos - grid */
+    .productos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .producto-card {
+      border: 1.5px solid var(--orange-light);
+      border-radius: 12px;
+      padding: 1rem;
+      background: var(--white-base);
+      box-shadow: 0 3px 6px rgb(0 0 0 / 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .producto-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 12px rgb(0 0 0 / 0.15);
+    }
+
+    .producto-card img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: 0.8rem;
+    }
+
+    .producto-card h3 {
+      color: var(--orange-base);
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+      text-align: center;
+    }
+
+    .producto-card p {
+      font-size: 0.9rem;
+      color: var(--brown-dark-base);
+      text-align: center;
+    }
+
+    /* Botones generales */
     .btn-primary {
       background-color: var(--blue-base);
       color: var(--white-base);
       border: none;
-      padding: 0.7rem 1.5rem;
+      padding: 0.8rem 1.8rem;
       font-size: 1.1rem;
       border-radius: 0.5rem;
       cursor: pointer;
       transition: background-color 0.3s ease;
       user-select: none;
+      margin-top: 1rem;
+      display: inline-block;
     }
     .btn-primary:hover {
       background-color: var(--blue-light);
+    }
+
+    /* Novedades - lista */
+    .novedades-list {
+      list-style-type: disc;
+      padding-left: 1.5rem;
+      max-width: 700px;
+    }
+
+    .novedades-list li {
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+      color: var(--black-base);
+    }
+
+    /* Responsive básico */
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+      header {
+        flex-direction: column;
+        align-items: center;
+      }
+      nav {
+        flex-wrap: wrap;
+      }
     }
 
   </style>
@@ -199,75 +205,65 @@
 <body>
 
   <header>
+    <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Isotipo Octofix" />
     <h1>Octofix</h1>
-    <div class="isotipo-wrapper" aria-label="Isotipo de pulpo con gorra y herramientas">
-      <!-- SVG simplificado de pulpo -->
-      <svg class="octopus" viewBox="0 0 100 100" role="img" aria-labelledby="title desc" xmlns="http://www.w3.org/2000/svg" >
-        <title id="title">Isotipo Pulpo Octofix</title>
-        <desc id="desc">Pulpo naranja con gorra azul, ojos marrón claro y blanco, con herramientas plateadas</desc>
-
-        <!-- Cuerpo pulpo -->
-        <circle cx="50" cy="50" r="30" />
-
-        <!-- Gorra -->
-        <path class="hat" d="M30,30 Q50,10 70,30 Z" />
-
-        <!-- Ojos -->
-        <circle class="eye-outer" cx="38" cy="50" r="8" />
-        <circle class="eye-inner" cx="38" cy="50" r="4" />
-        <circle class="eye-outer" cx="62" cy="50" r="8" />
-        <circle class="eye-inner" cx="62" cy="50" r="4" />
-
-        <!-- Tentáculos simplificados -->
-        <path class="tool" d="M20,70 L35,85" /> <!-- Regla -->
-        <path class="tool" d="M80,70 L65,85" /> <!-- Llave -->
-      </svg>
-    </div>
   </header>
 
+  <nav aria-label="Navegación principal">
+    <a href="#conocenos">Conócenos</a>
+    <a href="#productos">Catálogo</a>
+    <a href="#novedades">Novedades</a>
+  </nav>
+
   <main>
-    <section>
-      <h2>Identidad de Marca y Base de Diseño</h2>
+    <section id="conocenos" aria-labelledby="titulo-conocenos">
+      <h2 id="titulo-conocenos">Conócenos</h2>
       <p>
-        Según lo aparente, la empresa cliente se llama Octofix, siendo así que sugiere ser una empresa de reparaciones,
-        y con temática prima de pulpos, es de ahí, que se decide tener un isotipo que demuestre ambas temáticas, tanto la
-        reparación, como los pulpos.
-      </p>
-      <p>
-        El isotipo muestra a un pulpo de color naranja (#fe9914), con una gorra azul (#0762ac), bordes marrón oscuro (#8a4c0f),
-        ojos marrón claro (#af6318) con interior blanco (#fff2e5), y herramientas plateadas (#808080). La figura es
-        simétrica, alegre y mira hacia la derecha.
+        En Octofix somos un equipo apasionado por la reparación y la innovación, representados la versatilidad y eficiencia. Trabajamos con dedicación para ofrecer soluciones integrales en reparaciones
+        con calidad y confianza.
       </p>
     </section>
 
-    <section class="pattern-light">
-      <h3>Entramado Claro</h3>
-      <p>
-        El entramado claro suaviza y da detalle sin llamar demasiado la atención. Ideal para fondos de cartas, comunicados
-        o secciones con texto oscuro que necesitan contraste suave.
-      </p>
+    <section id="productos" aria-labelledby="titulo-productos">
+      <h2 id="titulo-productos">Catálogo de Productos</h2>
+      <div class="productos-grid" role="list">
+        <article class="producto-card" role="listitem" tabindex="0">
+          <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto 1 - Reparación de camas" />
+          <h3>Reparación de camas</h3>
+          <p>Validación y reparación de camas, para asegurar un excelente descansar.</p>
+          <button class="btn-primary" type="button">Comprar</button>
+        </article>
+
+        <article class="producto-card" role="listitem" tabindex="0">
+          <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto 2 - Reparación de armarios" />
+          <h3>Reparación de armarios</h3>
+          <p>Validación y reparación de armarios, asegurando a la calidad y la durabilidad</p>
+          <button class="btn-primary" type="button">Comprar</button>
+        </article>
+
+        <article class="producto-card" role="listitem" tabindex="0">
+          <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto 3 - Reparación de sillas" />
+          <h3>Reparación de sillas</h3>
+          <p>Validación y reparación de sillas, con excelencia y profesionalismo.</p>
+          <button class="btn-primary" type="button">Comprar</button>
+        </article>
+      </div>
     </section>
 
-    <section>
-      <h2>Paleta de colores</h2>
-      <ul>
-        <li><strong>Naranja:</strong> #fe9914</li>
-        <li><strong>Azul:</strong> #0762ac</li>
-        <li><strong>Marrón oscuro:</strong> #8a4c0f</li>
-        <li><strong>Marrón claro:</strong> #af6318</li>
-        <li><strong>Blanco:</strong> #fff2e5</li>
-        <li><strong>Plateado:</strong> #808080</li>
-        <li><strong>Negro:</strong> #000000</li>
+    <section id="novedades" aria-labelledby="titulo-novedades">
+      <h2 id="titulo-novedades">Novedades</h2>
+      <ul class="novedades-list">
+        <li>Novedad 1 </li>
+        <li>Novedad 2 </li>
+        <li>Novedad 3 </li>
       </ul>
     </section>
-
-    <button class="btn-primary" type="button">Contáctanos</button>
   </main>
 
   <!-- ================================================= -->
   <!-- =======================JS========================= -->
   <script>
-    
+   
   </script>
 
   <!-- ================================================= -->
