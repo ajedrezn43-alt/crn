@@ -4,36 +4,84 @@
   <meta charset="UTF-8" />
   <title>Octofix - SPA Simple</title>
   <style>
+    /* Tipografía oficial */
     @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,700;1,400&display=swap');
+
     :root {
-      --orange-base: #fe9914;
-      --blue-base: #0762ac;
-      --blue-light: #097fdf;
-      --white-base: #fff2e5;
-      --black-base: #000000;
-      --font-family: 'Rubik', sans-serif;
+      /* Paleta oficial */
+      --orange-base: #fe9914; /* naranja base */
+      --orange-h2-light: #ffc61a;
+      --orange-h1-dark: #b16b0e;
+      --orange-entramado-light: #ffaf17;
+      --orange-entramado-dark: #d78211;
+
+      --blue-base: #0762ac; /* azul base */
+      --blue-h3-light: #097fdf;
+      --blue-h1-dark: #044478;
+      --blue-entramado-light: #0870c5;
+      --blue-entramado-dark: #055392;
+
+      --brown-dark: #8a4c0f; /* marrón oscuro */
+      --brown-dark-h3-light: #b36213;
+      --brown-dark-h1-dark: #60350a;
+      --brown-dark-entramado-light: #9e5711;
+      --brown-dark-entramado-dark: #75400c;
+
+      --brown-light: #af6318; /* marrón claro */
+      --brown-light-h3-light: #e3801f;
+      --brown-light-h1-dark: #7a4510;
+      --brown-light-entramado-light: #c9711b;
+      --brown-light-entramado-dark: #945414;
+
+      --white-base: #fff2e5; /* blanco */
+      --white-h3-light: #ffffff;
+      --white-h1-dark: #b2a9a0;
+      --white-entramado-dark: #d8cdc2;
+
+      --silver-base: #808080; /* plateado */
+      --silver-h3-light: #a6a6a6;
+      --silver-h1-dark: #595959;
+      --silver-entramado-light: #939393;
+      --silver-entramado-dark: #6d6d6d;
+
+      --black-base: #000000; /* negro */
+      --black-h3-light: #333333;
+      --black-entramado-light: #2b2b2b;
     }
-    * { margin:0; padding:0; box-sizing: border-box; }
+
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: var(--font-family);
+      font-family: 'Rubik', sans-serif;
       background: var(--white-base);
       color: var(--black-base);
-      margin: 0;
       display: flex;
       min-height: 100vh;
+      margin: 0;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
-    /* Imagen fija a la izquierda, cubre toda la altura */
+
+    /* Imagen fija lateral izquierda con área de respeto 30% */
     #side-image {
       position: fixed;
       top: 0;
       left: 0;
       width: 200px;
       height: 100vh;
-      object-fit: cover;
+      object-fit: contain; /* Para que respete proporción */
+      padding: 24px; /* Área de respeto aprox 30% sobre 78px margen */
+      background: transparent;
       z-index: 1;
-      /* Animación entrada */
       animation: slideInLeft 1s ease forwards;
       opacity: 0;
+      box-sizing: content-box; /* padding no reduce tamaño */
     }
 
     @keyframes slideInLeft {
@@ -47,7 +95,7 @@
       }
     }
 
-    /* Contenedor de contenido, desplazado a la derecha para no tapar la imagen */
+    /* Wrapper del contenido desplazado a la derecha para no tapar la imagen */
     #content-wrapper {
       margin-left: 200px;
       padding: 2rem;
@@ -56,8 +104,10 @@
       flex-direction: column;
       max-width: 1000px;
       box-sizing: border-box;
+      background: transparent;
     }
 
+    /* Header */
     header {
       display: flex;
       justify-content: space-between;
@@ -68,36 +118,45 @@
       gap: 1rem;
       z-index: 2;
       position: relative;
+      background: transparent;
     }
+
+    /* Logo e isotipo con animación suave pulso */
     .logo-title {
       display: flex;
       align-items: center;
       gap: 1rem;
       cursor: pointer;
       user-select: none;
-      /* Pulso suave */
       animation: pulse 3s ease-in-out infinite;
     }
     @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.05);
-      }
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
+
+    /* Imagen isotipo con proporción cuadrada 1:1 y área de respeto correcta */
     .logo-title img {
       width: 80px;
       height: 80px;
       object-fit: contain;
       user-select: none;
+      padding: 24px; /* área de respeto 30% aplicada */
+      box-sizing: content-box;
+      background: transparent;
     }
+
+    /* Título de la marca con tipografía Rubik y color naranja base */
     .logo-title h1 {
       color: var(--orange-base);
       font-weight: 700;
       font-size: 2.8rem;
       user-select: none;
+      line-height: 1;
+      text-shadow: 1px 1px var(--brown-dark);
     }
+
+    /* Navegación */
     nav {
       display: flex;
       gap: 1.5rem;
@@ -112,26 +171,40 @@
       border-radius: 0.5rem;
       cursor: pointer;
       user-select: none;
-      transition: background-color 0.3s ease, transform 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      font-weight: 700;
+      box-shadow: 0 2px 4px var(--blue-entramado-dark);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
     }
     nav button:hover,
     nav button.active {
-      background-color: var(--blue-light);
+      background-color: var(--blue-h3-light);
       transform: scale(1.05);
+      box-shadow: 0 4px 8px var(--blue-entramado-light);
+      outline: none;
     }
+
+    nav button:focus-visible {
+      outline: 2px solid var(--orange-base);
+      outline-offset: 2px;
+    }
+
+    /* Main contenido */
     main {
       flex-grow: 1;
       min-height: 60vh;
       z-index: 2;
       position: relative;
-      /* Para animar contenido nuevo */
       opacity: 1;
       transition: opacity 0.5s ease;
+      outline-offset: 4px;
     }
     main.fade-out {
       opacity: 0;
     }
-    /* Producto único */
+
+    /* Producto único destacado */
     .producto-unico {
       border: 1.5px solid var(--orange-base);
       border-radius: 12px;
@@ -145,32 +218,39 @@
       margin: 0 auto 1rem auto;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .producto-unico:hover {
+    .producto-unico:hover,
+    .producto-unico:focus-within {
       transform: translateY(-6px);
       box-shadow: 0 6px 12px rgb(0 0 0 / 0.15);
+      outline: none;
     }
     .producto-unico img {
       width: 120px;
       height: 120px;
       object-fit: contain;
       border-radius: 8px;
+      border: 2px solid var(--brown-dark);
+      background: var(--white-base);
     }
     .producto-info {
       flex: 1;
+      color: var(--brown-dark);
     }
     .producto-info h3 {
       color: var(--orange-base);
       font-weight: 700;
       font-size: 1.5rem;
       margin-bottom: 0.3rem;
+      text-shadow: 1px 1px var(--brown-light);
     }
     .producto-info p {
       font-size: 1rem;
-      color: #5a3f00;
+      color: var(--brown-light);
       line-height: 1.4;
       margin-bottom: 1rem;
     }
-    /* Botón saber más separado */
+
+    /* Botón saber más */
     #btn-saber-mas {
       display: block;
       margin: 0 auto 3rem auto;
@@ -182,13 +262,21 @@
       border-radius: 0.5rem;
       cursor: pointer;
       user-select: none;
-      transition: background-color 0.3s ease, transform 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      font-weight: 700;
+      box-shadow: 0 2px 4px var(--blue-entramado-dark);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
     }
-    #btn-saber-mas:hover {
-      background-color: var(--blue-light);
+    #btn-saber-mas:hover,
+    #btn-saber-mas:focus-visible {
+      background-color: var(--blue-h3-light);
       transform: scale(1.05);
+      outline: none;
+      box-shadow: 0 4px 8px var(--blue-entramado-light);
     }
-    /* Productos lista para catálogo */
+
+    /* Lista catálogo */
     .productos-list {
       display: flex;
       flex-direction: column;
@@ -206,16 +294,21 @@
       box-shadow: 0 3px 6px rgb(0 0 0 / 0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .producto-card:hover {
+    .producto-card:hover,
+    .producto-card:focus-within {
       transform: translateY(-6px);
       box-shadow: 0 6px 12px rgb(0 0 0 / 0.15);
+      outline: none;
     }
     .producto-card img {
       width: 120px;
       height: 120px;
       object-fit: contain;
       border-radius: 8px;
+      border: 2px solid var(--brown-dark);
+      background: var(--white-base);
     }
+
     /* Secciones Conócenos y Novedades */
     section {
       max-width: 700px;
@@ -224,6 +317,7 @@
       margin-bottom: 3rem;
       margin-left: auto;
       margin-right: auto;
+      color: var(--brown-dark);
     }
     section h2 {
       color: var(--blue-base);
@@ -232,6 +326,7 @@
       margin-bottom: 1rem;
       border-left: 6px solid var(--orange-base);
       padding-left: 0.8rem;
+      text-shadow: 1px 1px var(--brown-light);
     }
     ul.novedades-list {
       list-style: disc;
@@ -242,6 +337,7 @@
       font-size: 1rem;
       color: var(--black-base);
     }
+
     /* Footer */
     footer {
       border-top: 2px solid var(--orange-base);
@@ -249,14 +345,17 @@
       margin-top: auto;
       text-align: center;
       font-size: 0.9rem;
-      color: #555;
+      color: var(--brown-light);
       user-select: none;
       z-index: 2;
       position: relative;
+      background: transparent;
     }
     footer p {
       margin-bottom: 0.3rem;
+      text-shadow: 1px 1px var(--brown-dark);
     }
+
     /* Responsive */
     @media (max-width: 600px) {
       #side-image {
@@ -290,10 +389,10 @@
 </head>
 <body>
 
-  <!-- Imagen fija a la izquierda -->
+  <!-- Imagen fija a la izquierda con área de respeto (padding) para no romper proporción -->
   <img id="side-image" src="https://user.uploads.dev/file/a5733707aab7e3cc80e729a5bcedd360.png" alt="Imagen lateral decorativa" />
 
-  <!-- Contenedor de contenido principal -->
+  <!-- Contenedor principal -->
   <div id="content-wrapper">
 
     <header>
@@ -308,7 +407,7 @@
       </nav>
     </header>
 
-    <main id="contenido" tabindex="-1">
+    <main id="contenido" tabindex="-1" aria-live="polite" aria-atomic="true">
       <!-- Contenido inicial: producto único -->
       <article class="producto-unico" tabindex="0">
         <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto Reparación de camas" />
@@ -330,113 +429,132 @@
 
   <script>
     const btnProductos = document.getElementById('btn-productos');
-    const btnConocenos = document.getElementById('btn-conocenos');
-    const btnNovedades = document.getElementById('btn-novedades');
-    const contenido = document.getElementById('contenido');
-    const logoTitle = document.querySelector('.logo-title');
+const btnConocenos = document.getElementById('btn-conocenos');
+const btnNovedades = document.getElementById('btn-novedades');
+const contenido = document.getElementById('contenido');
+const logoTitle = document.querySelector('.logo-title');
 
-    // Contenidos
-    const mainProductoUnico = `
-      <article class="producto-unico" tabindex="0">
+const mainProductoUnico = `
+  <article class="producto-unico" tabindex="0">
+    <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto Reparación de camas" />
+    <div class="producto-info">
+      <h3>Reparación de camas</h3>
+      <p>Validación y reparación de camas, para asegurar un excelente descanso.</p>
+    </div>
+  </article>
+  <button id="btn-saber-mas" class="btn-primary" type="button" aria-label="Ver catálogo completo de productos">Saber más</button>
+`;
+
+const catalogoHTML = `
+  <section aria-labelledby="titulo-productos" tabindex="0">
+    <h2 id="titulo-productos">Catálogo de Productos</h2>
+    <div class="productos-list" role="list">
+      <article class="producto-card" role="listitem" tabindex="0">
         <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto Reparación de camas" />
         <div class="producto-info">
           <h3>Reparación de camas</h3>
           <p>Validación y reparación de camas, para asegurar un excelente descanso.</p>
         </div>
       </article>
-      <button id="btn-saber-mas" class="btn-primary" type="button" aria-label="Ver catálogo completo de productos">Saber más</button>
-    `;
+      <!-- Puedes agregar más productos aquí -->
+    </div>
+  </section>
+`;
 
-    const catalogoHTML = `
-      <section aria-labelledby="titulo-productos" tabindex="0">
-        <h2 id="titulo-productos">Catálogo de Productos</h2>
-        <div class="productos-list" role="list">
-          <article class="producto-card" role="listitem" tabindex="0">
-            <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto Reparación de camas" />
-            <div class="producto-info">
-              <h3>Reparación de camas</h3>
-              <p>Validación y reparación de camas, para asegurar un excelente descanso.</p>
-            </div>
-          </article>
-          <article class="producto-card" role="listitem" tabindex="0">
-            <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto Reparación de armarios" />
-            <div class="producto-info">
-              <h3>Reparación de armarios</h3>
-              <p>Validación y reparación de armarios, asegurando calidad y durabilidad.</p>
-            </div>
-          </article>
-          <article class="producto-card" role="listitem" tabindex="0">
-            <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto Reparación de sillas" />
-            <div class="producto-info">
-              <h3>Reparación de sillas</h3>
-              <p>Validación y reparación de sillas, con excelencia y profesionalismo.</p>
-            </div>
-          </article>
-        </div>
-      </section>
-    `;
+const conocenosHTML = `
+  <section aria-labelledby="titulo-conocenos" tabindex="0">
+    <h2 id="titulo-conocenos">Conócenos</h2>
+    <p>
+      Somos Octofix, especialistas en reparación y mantenimiento, comprometidos con la calidad y el cuidado de tu descanso.
+      Nuestra experiencia y dedicación nos permiten ofrecer un servicio confiable y profesional.
+    </p>
+  </section>
+`;
 
-    const conocenosHTML = `
-      <section aria-labelledby="titulo-conocenos" tabindex="0" style="max-width:700px; margin: 0 auto;">
-        <h2 id="titulo-conocenos">Conócenos</h2>
-        <p>
-          En Octofix somos un equipo apasionado por la reparación y la innovación, dedicados a ofrecer soluciones integrales
-          con calidad y confianza.
-        </p>
-      </section>
-    `;
+const novedadesHTML = `
+  <section aria-labelledby="titulo-novedades" tabindex="0">
+    <h2 id="titulo-novedades">Novedades</h2>
+    <ul class="novedades-list">
+      <li>¡Nuevo servicio de reparación exprés disponible!</li>
+      <li>Descuentos especiales este mes para clientes frecuentes.</li>
+      <li>Implementamos tecnología para diagnósticos más precisos.</li>
+    </ul>
+  </section>
+`;
 
-    const novedadesHTML = `
-      <section aria-labelledby="titulo-novedades" tabindex="0" style="max-width:700px; margin: 0 auto;">
-        <h2 id="titulo-novedades">Novedades</h2>
-        <ul class="novedades-list">
-          <li>Novedad 1: Nuevo servicio de reparación express.</li>
-          <li>Novedad 2: Incorporamos técnicas sostenibles en nuestras reparaciones.</li>
-          <li>Novedad 3: Ampliamos nuestro horario de atención para ti.</li>
-        </ul>
-      </section>
-    `;
+// Función para cambiar contenido y animar fade out / in
+function cambiarContenido(nuevoContenido) {
+  contenido.classList.add('fade-out');
+  setTimeout(() => {
+    contenido.innerHTML = nuevoContenido;
+    contenido.classList.remove('fade-out');
+    contenido.focus();
 
-    function cambiarContenido(html, btnSeleccionado) {
-      // Animar salida
-      contenido.classList.add('fade-out');
-      setTimeout(() => {
-        contenido.innerHTML = html;
-        contenido.classList.remove('fade-out');
-        contenido.focus();
-
-        const nuevoBtnSaberMas = document.getElementById('btn-saber-mas');
-        if (nuevoBtnSaberMas) {
-          nuevoBtnSaberMas.addEventListener('click', () => cambiarContenido(catalogoHTML, btnProductos));
-        }
-
-        [btnProductos, btnConocenos, btnNovedades].forEach(btn => {
-          btn.classList.remove('active');
-          btn.setAttribute('aria-selected', 'false');
-        });
-        btnSeleccionado.classList.add('active');
-        btnSeleccionado.setAttribute('aria-selected', 'true');
-      }, 300); // Match con transición CSS
-    }
-
-    btnProductos.addEventListener('click', () => cambiarContenido(catalogoHTML, btnProductos));
-    btnConocenos.addEventListener('click', () => cambiarContenido(conocenosHTML, btnConocenos));
-    btnNovedades.addEventListener('click', () => cambiarContenido(novedadesHTML, btnNovedades));
-
-    logoTitle.addEventListener('click', () => cambiarContenido(mainProductoUnico, btnProductos));
-    logoTitle.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        cambiarContenido(mainProductoUnico, btnProductos);
-      }
-    });
-
-    // Botón saber más inicial
+    // Si el botón "Saber más" está en el nuevo contenido, lo activamos
     const btnSaberMas = document.getElementById('btn-saber-mas');
     if (btnSaberMas) {
-      btnSaberMas.addEventListener('click', () => cambiarContenido(catalogoHTML, btnProductos));
+      btnSaberMas.addEventListener('click', () => {
+        // Cambia al catálogo completo
+        activarBoton(btnProductos);
+        cambiarContenido(catalogoHTML);
+      });
     }
-  </script>
+  }, 300);
+}
 
-</body>
-</html>
+// Función para manejar activación de botón y atributos aria
+function activarBoton(botonActivo) {
+  [btnProductos, btnConocenos, btnNovedades].forEach(btn => {
+    if (btn === botonActivo) {
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      btn.setAttribute('tabindex', '0');
+    } else {
+      btn.classList.remove('active');
+      btn.setAttribute('aria-selected', 'false');
+      btn.setAttribute('tabindex', '-1');
+    }
+  });
+}
+
+// Eventos de navegación
+btnProductos.addEventListener('click', () => {
+  activarBoton(btnProductos);
+  cambiarContenido(mainProductoUnico);
+});
+
+btnConocenos.addEventListener('click', () => {
+  activarBoton(btnConocenos);
+  cambiarContenido(conocenosHTML);
+});
+
+btnNovedades.addEventListener('click', () => {
+  activarBoton(btnNovedades);
+  cambiarContenido(novedadesHTML);
+});
+
+// Click o teclado en logo vuelve a inicio (producto único)
+logoTitle.addEventListener('click', () => {
+  activarBoton(btnProductos);
+  cambiarContenido(mainProductoUnico);
+});
+logoTitle.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    activarBoton(btnProductos);
+    cambiarContenido(mainProductoUnico);
+  }
+});
+
+// Inicializamos con el contenido producto único y botón activo
+activarBoton(btnProductos);
+contenido.innerHTML = mainProductoUnico;
+
+// Activar el botón saber más si ya está cargado
+const btnSaberMasInit = document.getElementById('btn-saber-mas');
+if (btnSaberMasInit) {
+  btnSaberMasInit.addEventListener('click', () => {
+    activarBoton(btnProductos);
+    cambiarContenido(catalogoHTML);
+  });
+}
