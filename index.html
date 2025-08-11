@@ -2,130 +2,195 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Mi página web</title>
-
-  <!-- ================================================= -->
-  <!-- ====================FUENTES====================== -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Octofix - Identidad de Marca</title>
 
   <!-- ================================================= -->
   <!-- ======================CSS======================== -->
   <style>
+    /* Importamos tipografía Rubik desde Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,700;1,400&display=swap');
+
+    /* Variables CSS para la paleta Octofix */
+    :root {
+      /* Naranjas */
+      --orange-base: #fe9914;
+      --orange-light: #ffc61a;
+      --orange-dark: #b16b0e;
+      --orange-ent-light: #ffaf17;
+      --orange-ent-dark: #d78211;
+
+      /* Azules */
+      --blue-base: #0762ac;
+      --blue-light: #097fdf;
+      --blue-dark: #044478;
+      --blue-ent-light: #0870c5;
+      --blue-ent-dark: #055392;
+
+      /* Marrones */
+      --brown-dark-base: #8a4c0f;
+      --brown-dark-light: #b36213;
+      --brown-dark-dark: #60350a;
+      --brown-dark-ent-light: #9e5711;
+      --brown-dark-ent-dark: #75400c;
+
+      --brown-light-base: #af6318;
+      --brown-light-light: #e3801f;
+      --brown-light-dark: #7a4510;
+      --brown-light-ent-light: #c9711b;
+      --brown-light-ent-dark: #945414;
+
+      /* Blanco */
+      --white-base: #fff2e5;
+      --white-light: #ffffff;
+      --white-dark: #b2a9a0;
+      --white-ent-light: #ffffff;
+      --white-ent-dark: #d8cdc2;
+
+      /* Plateado */
+      --silver-base: #808080;
+      --silver-light: #a6a6a6;
+      --silver-dark: #595959;
+      --silver-ent-light: #939393;
+      --silver-ent-dark: #6d6d6d;
+
+      /* Negro */
+      --black-base: #000000;
+      --black-light: #333333;
+      --black-ent-light: #2b2b2b;
+      --black-ent-dark: #000000;
+
+      /* Otros */
+      --background-light: var(--white-base);
+      --background-dark: var(--black-ent-light);
+
+      --font-family: 'Rubik', sans-serif;
+    }
+
+    /* Reset básico y base */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Roboto', sans-serif;
     }
 
     body {
-      background-color: #f5f5f5;
-    }
-
-    header {
-      background-color: #222;
-      color: white;
-      padding: 15px 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    nav {
-      display: flex;
-      gap: 20px;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-size: 16px;
-      transition: color 0.2s ease;
-    }
-
-    nav a:hover {
-      color: #ffcc00;
-    }
-
-    .search {
-      font-size: 18px;
-      cursor: pointer;
-    }
-
-    main {
-      padding: 40px 20px;
+      font-family: var(--font-family);
+      background-color: var(--background-light);
+      color: var(--black-base);
+      line-height: 1.5;
+      padding: 2rem;
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Área de respeto isotipo: 30% margen alrededor */
+    .isotipo-wrapper {
+      position: relative;
+      width: 200px; /* tamaño base isotipo */
+      height: 200px;
+      margin-bottom: 2rem;
+      padding: 30%; /* para el área de respeto */
+      background-color: var(--orange-ent-light);
+      border: 2px solid var(--orange-dark);
+      border-radius: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Isotipo SVG - Pulpo simplificado */
+    svg.octopus {
+      width: 100px;
+      height: 100px;
+      fill: var(--orange-base);
+      stroke: var(--brown-dark-base);
+      stroke-width: 2px;
+    }
+
+    /* Sombras y bordes para la gorra azul */
+    .hat {
+      fill: var(--blue-base);
+      stroke: var(--black-base);
+      stroke-width: 1.5px;
+    }
+
+    /* Ojos: marrón claro y blanco */
+    .eye-outer {
+      fill: var(--brown-light-base);
+      stroke: var(--black-base);
+      stroke-width: 0.8px;
+    }
+    .eye-inner {
+      fill: var(--white-base);
+    }
+
+    /* Herramientas plateadas */
+    .tool {
+      fill: var(--silver-base);
+      stroke: var(--black-base);
+      stroke-width: 1px;
+    }
+
+    /* Títulos */
+    h1 {
+      color: var(--orange-base);
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    h2 {
+      color: var(--blue-base);
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    h3 {
+      color: var(--brown-dark-base);
+      font-weight: 600;
+      font-size: 1.3rem;
+      margin-bottom: 0.6rem;
+    }
+
+    p {
+      color: var(--black-base);
       max-width: 600px;
-      margin: 0 auto;
+      margin-bottom: 1rem;
+      text-align: justify;
     }
 
-.card {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.2s, max-height 0.4s ease;
-  position: relative;
-  max-height: 300px; /* altura normal */
-}
-
-.card:hover {
-  transform: scale(1.02);
-}
-
-.card.expanded {
-  max-height: 25vh;
-}
-
-.card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.card.expanded img {
-  height: 25vh;  
-  object-fit: contain;
-  background-color: #000;
-}
-
-.card-content {
-  padding: 15px;
-}
-
-.card-content h3 {
-  margin-bottom: 10px;
-  font-size: 18px;
-  color: #333;
-}
-
-.card-content p {
-  font-size: 14px;
-  color: #666;
-}
-
-.full-description {
-  display: none;
-  margin-top: 10px;
-  font-size: 13px;
-  color: #444;
-}
-
-.card.expanded .full-description {
-  display: block;
-}
-
+    /* Entramado claro - patrón SVG */
+    .pattern-light {
+      background-color: var(--orange-ent-light);
+      background-image: radial-gradient(circle at center, var(--orange-ent-dark) 1px, transparent 2px);
+      background-size: 10px 10px;
+      padding: 1rem 2rem;
+      border-radius: 0.7rem;
+      margin: 2rem 0;
+      max-width: 700px;
     }
+
+    /* Botón ejemplo usando paleta */
+    .btn-primary {
+      background-color: var(--blue-base);
+      color: var(--white-base);
+      border: none;
+      padding: 0.7rem 1.5rem;
+      font-size: 1.1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    .btn-primary:hover {
+      background-color: var(--blue-light);
+    }
+
   </style>
 
   <!-- ================================================= -->
@@ -134,76 +199,78 @@
 <body>
 
   <header>
-    <div class="logo">LOGO</div>
-    <nav>
-      <a href="#">Productos</a>
-      <a href="#">Conócenos</a>
-      <a href="#">Novedades</a>
-    </nav>
-    <div class="search">🔍</div>
+    <h1>Octofix</h1>
+    <div class="isotipo-wrapper" aria-label="Isotipo de pulpo con gorra y herramientas">
+      <!-- SVG simplificado de pulpo -->
+      <svg class="octopus" viewBox="0 0 100 100" role="img" aria-labelledby="title desc" xmlns="http://www.w3.org/2000/svg" >
+        <title id="title">Isotipo Pulpo Octofix</title>
+        <desc id="desc">Pulpo naranja con gorra azul, ojos marrón claro y blanco, con herramientas plateadas</desc>
+
+        <!-- Cuerpo pulpo -->
+        <circle cx="50" cy="50" r="30" />
+
+        <!-- Gorra -->
+        <path class="hat" d="M30,30 Q50,10 70,30 Z" />
+
+        <!-- Ojos -->
+        <circle class="eye-outer" cx="38" cy="50" r="8" />
+        <circle class="eye-inner" cx="38" cy="50" r="4" />
+        <circle class="eye-outer" cx="62" cy="50" r="8" />
+        <circle class="eye-inner" cx="62" cy="50" r="4" />
+
+        <!-- Tentáculos simplificados -->
+        <path class="tool" d="M20,70 L35,85" /> <!-- Regla -->
+        <path class="tool" d="M80,70 L65,85" /> <!-- Llave -->
+      </svg>
+    </div>
   </header>
 
-<main>
-  <div class="card">
-    <img src="https://user.uploads.dev/file/8be2f488d1ae0d86d3c86dfc50a11cbf.webp" alt="Cámara 1">
-    <div class="card-content">
-      <h3>Cámara Profesional X1</h3>
-      <p>Alta resolución, zoom óptico 20x. Ideal para fotógrafos.</p>
-      <p class="full-description">
-        Esta cámara ofrece un sensor de 50MP, estabilización mecánica de 5 ejes y grabación en 4K. Diseñada para capturar hasta el alma de la luz.
+  <main>
+    <section>
+      <h2>Identidad de Marca y Base de Diseño</h2>
+      <p>
+        Según lo aparente, la empresa cliente se llama Octofix, siendo así que sugiere ser una empresa de reparaciones,
+        y con temática prima de pulpos, es de ahí, que se decide tener un isotipo que demuestre ambas temáticas, tanto la
+        reparación, como los pulpos.
       </p>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://user.uploads.dev/file/8be2f488d1ae0d86d3c86dfc50a11cbf.webp" alt="Cámara 2">
-    <div class="card-content">
-      <h3>Cámara Compacta Z2</h3>
-      <p>Ligera y fácil de usar. Perfecta para viajes espontáneos.</p>
-      <p class="full-description">
-        Compacta, pero poderosa: 24MP, batería de larga duración y conexión directa a móvil. Captura tu mundo sin complicaciones.
+      <p>
+        El isotipo muestra a un pulpo de color naranja (#fe9914), con una gorra azul (#0762ac), bordes marrón oscuro (#8a4c0f),
+        ojos marrón claro (#af6318) con interior blanco (#fff2e5), y herramientas plateadas (#808080). La figura es
+        simétrica, alegre y mira hacia la derecha.
       </p>
-    </div>
-  </div>
+    </section>
 
-  <div class="card">
-    <img src="https://user.uploads.dev/file/8be2f488d1ae0d86d3c86dfc50a11cbf.webp" alt="Cámara 3">
-    <div class="card-content">
-      <h3>Cámara Vintage R3</h3>
-      <p>Diseño retro con tecnología moderna. Estilo y calidad.</p>
-      <p class="full-description">
-        Inspirada en los años 70, esta cámara combina estética clásica con funciones digitales. Ideal para amantes del arte y la nostalgia.
+    <section class="pattern-light">
+      <h3>Entramado Claro</h3>
+      <p>
+        El entramado claro suaviza y da detalle sin llamar demasiado la atención. Ideal para fondos de cartas, comunicados
+        o secciones con texto oscuro que necesitan contraste suave.
       </p>
-    </div>
-  </div>
-</main>
+    </section>
 
+    <section>
+      <h2>Paleta de colores</h2>
+      <ul>
+        <li><strong>Naranja:</strong> #fe9914</li>
+        <li><strong>Azul:</strong> #0762ac</li>
+        <li><strong>Marrón oscuro:</strong> #8a4c0f</li>
+        <li><strong>Marrón claro:</strong> #af6318</li>
+        <li><strong>Blanco:</strong> #fff2e5</li>
+        <li><strong>Plateado:</strong> #808080</li>
+        <li><strong>Negro:</strong> #000000</li>
+      </ul>
+    </section>
+
+    <button class="btn-primary" type="button">Contáctanos</button>
+  </main>
 
   <!-- ================================================= -->
-  <!-- ======================JS========================= -->
+  <!-- =======================JS========================= -->
   <script>
-    console.log("Página cargada correctamente.");
+    
   </script>
 
-<script>
-  // Detecta si el cursor se queda más de 1 segundo sobre la tarjeta
-  document.querySelectorAll('.card').forEach(card => {
-    let hoverTimer;
+  <!-- ================================================= -->
 
-    card.addEventListener('mouseenter', () => {
-      hoverTimer = setTimeout(() => {
-        card.classList.add('expanded');
-      }, 1000); // 1 segundo
-    });
-
-    card.addEventListener('mouseleave', () => {
-      clearTimeout(hoverTimer);
-      card.classList.remove('expanded');
-    });
-  });
-</script>
-
-  
-  <!-- ================================================= --> 
 </body>
 </html>
