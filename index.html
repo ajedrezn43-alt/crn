@@ -121,6 +121,20 @@
       background: transparent;
     }
 
+    footer {
+  background-color: #0762ac; /* Azul base */
+  color: #fff2e5; /* Blanco suave para texto */
+  border-top: none; /* Quita el borde si quieres */
+  padding: 1rem 0;
+  margin-top: auto;
+  text-align: center;
+  font-size: 0.9rem;
+  user-select: none;
+  position: relative;
+  z-index: 2;
+}
+
+
     /* Logo e isotipo con animación suave pulso */
     .logo-title {
       display: flex;
@@ -128,7 +142,6 @@
       gap: 1rem;
       cursor: pointer;
       user-select: none;
-      animation: pulse 3s ease-in-out infinite;
     }
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
@@ -418,12 +431,12 @@
       </article>
       <button id="btn-saber-mas" class="btn-primary" type="button" aria-label="Ver catálogo completo de productos">Saber más</button>
     </main>
-
-    <footer>
-      <p><strong>Octofix</strong></p>
-      <p>Teléfono: (000) 123-4567</p>
-      <p>Dirección: Calle Falsa 123, Ciudad Ejemplo</p>
-    </footer>
+    
+<footer>
+  <p><strong>Octofix</strong></p>
+  <p>Teléfono: (000) 123-4567</p>
+  <p>Dirección: Calle Falsa 123, Ciudad Ejemplo</p>
+</footer>
 
   </div>
 
@@ -558,3 +571,4 @@ if (btnSaberMasInit) {
     cambiarContenido(catalogoHTML);
   });
 }
+
