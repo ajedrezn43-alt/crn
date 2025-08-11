@@ -71,7 +71,61 @@
       min-height: 60vh;
     }
 
-    /* Productos list vertical */
+    /* Main producto único */
+    .producto-unico {
+      border: 1.5px solid var(--orange-base);
+      border-radius: 12px;
+      padding: 1rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      background: var(--white-base);
+      box-shadow: 0 3px 6px rgb(0 0 0 / 0.1);
+      max-width: 700px;
+      margin: 0 auto;
+      transition: transform 0.3s ease;
+    }
+    .producto-unico:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 12px rgb(0 0 0 / 0.15);
+    }
+    .producto-unico img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    .producto-info {
+      flex: 1;
+    }
+    .producto-info h3 {
+      color: var(--orange-base);
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin-bottom: 0.3rem;
+    }
+    .producto-info p {
+      font-size: 1rem;
+      color: #5a3f00;
+      line-height: 1.4;
+      margin-bottom: 1rem;
+    }
+    .btn-primary {
+      background-color: var(--blue-base);
+      color: var(--white-base);
+      border: none;
+      padding: 0.6rem 1.4rem;
+      font-size: 1.1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    .btn-primary:hover {
+      background-color: var(--blue-light);
+    }
+
+    /* Productos list vertical (solo para catálogo) */
     .productos-list {
       display: flex;
       flex-direction: column;
@@ -99,20 +153,6 @@
       object-fit: contain;
       border-radius: 8px;
     }
-    .producto-info {
-      flex: 1;
-    }
-    .producto-info h3 {
-      color: var(--orange-base);
-      font-weight: 700;
-      font-size: 1.5rem;
-      margin-bottom: 0.3rem;
-    }
-    .producto-info p {
-      font-size: 1rem;
-      color: #5a3f00;
-      line-height: 1.4;
-    }
 
     /* Secciones Conócenos y Novedades */
     section {
@@ -120,6 +160,8 @@
       text-align: justify;
       line-height: 1.5;
       margin-bottom: 3rem;
+      margin-left: auto;
+      margin-right: auto;
     }
     section h2 {
       color: var(--blue-base);
@@ -150,6 +192,7 @@
         align-items: center;
         justify-content: center;
       }
+      .producto-unico,
       .producto-card {
         flex-direction: column;
         align-items: center;
@@ -176,12 +219,26 @@
 </header>
 
 <main id="contenido" tabindex="-1">
-  <!-- Aquí se inyectará el contenido -->
+  <!-- Contenido inicial: producto único -->
+  <article class="producto-unico" tabindex="0">
+    <img src="https://user.uploads.dev/file/906e6aee81edb12314710fd1c9ed4b66.png" alt="Producto Reparación de camas" />
+    <div class="producto-info">
+      <h3>Reparación de camas</h3>
+      <p>Validación y reparación de camas, para asegurar un excelente descanso.</p>
+      <button id="btn-saber-mas" class="btn-primary" type="button">Saber más</button>
+    </div>
+  </article>
 </main>
 
 <script>
-  // Contenidos de las secciones como templates (strings)
-  const productosHTML = `
+  const btnProductos = document.getElementById('btn-productos');
+  const btnConocenos = document.getElementById('btn-conocenos');
+  const btnNovedades = document.getElementById('btn-novedades');
+  const contenido = document.getElementById('contenido');
+  const btnSaberMas = document.getElementById('btn-saber-mas');
+
+  // Contenidos de catálogo, conocenos y novedades
+  const catalogoHTML = `
     <section aria-labelledby="titulo-productos" tabindex="0">
       <h2 id="titulo-productos">Catálogo de Productos</h2>
       <div class="productos-list" role="list">
@@ -208,22 +265,13 @@
         </article>
       </div>
     </section>
-    <section id="conocenos" aria-labelledby="titulo-conocenos" tabindex="0" style="border-top:2px solid var(--orange-base); padding-top:2rem; max-width:700px; margin-top:3rem;">
-      <h2 id="titulo-conocenos">Conócenos</h2>
-      <p>
-        En Octofix somos un equipo apasionado por la reparación y la innovación, representados por nuestro isotipo de pulpo,
-        símbolo de versatilidad y eficiencia. Trabajamos con dedicación para ofrecer soluciones integrales en reparaciones
-        con calidad y confianza.
-      </p>
-    </section>
   `;
 
   const conocenosHTML = `
     <section aria-labelledby="titulo-conocenos" tabindex="0" style="max-width:700px; margin: 0 auto;">
       <h2 id="titulo-conocenos">Conócenos</h2>
       <p>
-        En Octofix somos un equipo apasionado por la reparación y la innovación, representados por nuestro isotipo de pulpo,
-        símbolo de versatilidad y eficiencia. Trabajamos con dedicación para ofrecer soluciones integrales en reparaciones
+        En Octofix somos un equipo apasionado por la reparación y la innovación, dedicados a ofrecer soluciones integrales
         con calidad y confianza.
       </p>
     </section>
@@ -240,17 +288,10 @@
     </section>
   `;
 
-  // Referencias botones y main
-  const btnProductos = document.getElementById('btn-productos');
-  const btnConocenos = document.getElementById('btn-conocenos');
-  const btnNovedades = document.getElementById('btn-novedades');
-  const contenido = document.getElementById('contenido');
-
   function cambiarContenido(html, btnSeleccionado) {
     contenido.innerHTML = html;
     contenido.focus();
 
-    // Actualizar aria-selected y clases
     [btnProductos, btnConocenos, btnNovedades].forEach(btn => {
       btn.classList.remove('active');
       btn.setAttribute('aria-selected', 'false');
@@ -259,13 +300,13 @@
     btnSeleccionado.setAttribute('aria-selected', 'true');
   }
 
-  // Inicial: mostrar productos + conocenos abajo
-  cambiarContenido(productosHTML, btnProductos);
-
-  // Eventos botones
-  btnProductos.addEventListener('click', () => cambiarContenido(productosHTML, btnProductos));
+  btnProductos.addEventListener('click', () => cambiarContenido(catalogoHTML, btnProductos));
   btnConocenos.addEventListener('click', () => cambiarContenido(conocenosHTML, btnConocenos));
   btnNovedades.addEventListener('click', () => cambiarContenido(novedadesHTML, btnNovedades));
+
+  btnSaberMas.addEventListener('click', () => {
+    cambiarContenido(catalogoHTML, btnProductos);
+  });
 </script>
 
 </body>
