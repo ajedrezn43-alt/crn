@@ -27,14 +27,29 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 200px; /* ajusta si quieres */
+      width: 200px;
       height: 100vh;
       object-fit: cover;
       z-index: 1;
+      /* Animación entrada */
+      animation: slideInLeft 1s ease forwards;
+      opacity: 0;
     }
+
+    @keyframes slideInLeft {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
     /* Contenedor de contenido, desplazado a la derecha para no tapar la imagen */
     #content-wrapper {
-      margin-left: 200px; /* igual al ancho de la imagen */
+      margin-left: 200px;
       padding: 2rem;
       flex-grow: 1;
       display: flex;
@@ -60,6 +75,16 @@
       gap: 1rem;
       cursor: pointer;
       user-select: none;
+      /* Pulso suave */
+      animation: pulse 3s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
     }
     .logo-title img {
       width: 80px;
@@ -87,17 +112,24 @@
       border-radius: 0.5rem;
       cursor: pointer;
       user-select: none;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.3s ease;
     }
     nav button:hover,
     nav button.active {
       background-color: var(--blue-light);
+      transform: scale(1.05);
     }
     main {
       flex-grow: 1;
       min-height: 60vh;
       z-index: 2;
       position: relative;
+      /* Para animar contenido nuevo */
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+    main.fade-out {
+      opacity: 0;
     }
     /* Producto único */
     .producto-unico {
@@ -111,7 +143,7 @@
       box-shadow: 0 3px 6px rgb(0 0 0 / 0.1);
       max-width: 700px;
       margin: 0 auto 1rem auto;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .producto-unico:hover {
       transform: translateY(-6px);
@@ -150,10 +182,11 @@
       border-radius: 0.5rem;
       cursor: pointer;
       user-select: none;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.3s ease;
     }
     #btn-saber-mas:hover {
       background-color: var(--blue-light);
+      transform: scale(1.05);
     }
     /* Productos lista para catálogo */
     .productos-list {
@@ -171,7 +204,7 @@
       align-items: center;
       background: var(--white-base);
       box-shadow: 0 3px 6px rgb(0 0 0 / 0.1);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .producto-card:hover {
       transform: translateY(-6px);
@@ -365,20 +398,25 @@
     `;
 
     function cambiarContenido(html, btnSeleccionado) {
-      contenido.innerHTML = html;
-      contenido.focus();
+      // Animar salida
+      contenido.classList.add('fade-out');
+      setTimeout(() => {
+        contenido.innerHTML = html;
+        contenido.classList.remove('fade-out');
+        contenido.focus();
 
-      const nuevoBtnSaberMas = document.getElementById('btn-saber-mas');
-      if (nuevoBtnSaberMas) {
-        nuevoBtnSaberMas.addEventListener('click', () => cambiarContenido(catalogoHTML, btnProductos));
-      }
+        const nuevoBtnSaberMas = document.getElementById('btn-saber-mas');
+        if (nuevoBtnSaberMas) {
+          nuevoBtnSaberMas.addEventListener('click', () => cambiarContenido(catalogoHTML, btnProductos));
+        }
 
-      [btnProductos, btnConocenos, btnNovedades].forEach(btn => {
-        btn.classList.remove('active');
-        btn.setAttribute('aria-selected', 'false');
-      });
-      btnSeleccionado.classList.add('active');
-      btnSeleccionado.setAttribute('aria-selected', 'true');
+        [btnProductos, btnConocenos, btnNovedades].forEach(btn => {
+          btn.classList.remove('active');
+          btn.setAttribute('aria-selected', 'false');
+        });
+        btnSeleccionado.classList.add('active');
+        btnSeleccionado.setAttribute('aria-selected', 'true');
+      }, 300); // Match con transición CSS
     }
 
     btnProductos.addEventListener('click', () => cambiarContenido(catalogoHTML, btnProductos));
