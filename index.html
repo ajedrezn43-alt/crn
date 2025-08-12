@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
   <title>Octofix - SPA Simple</title>
   <style>
@@ -32,9 +31,11 @@
       height: 100vh;
       object-fit: cover;
       z-index: 1;
+      /* Animación entrada */
       animation: slideInLeft 1s ease forwards;
       opacity: 0;
     }
+
     @keyframes slideInLeft {
       from {
         transform: translateX(-100%);
@@ -45,6 +46,7 @@
         opacity: 1;
       }
     }
+
     /* Contenedor de contenido, desplazado a la derecha para no tapar la imagen */
     #content-wrapper {
       margin-left: 200px;
@@ -55,6 +57,7 @@
       max-width: 1000px;
       box-sizing: border-box;
     }
+
     header {
       display: flex;
       justify-content: space-between;
@@ -73,6 +76,7 @@
       cursor: pointer;
       user-select: none;
     }
+    
     @keyframes pulse {
       0%, 100% {
         transform: scale(1);
@@ -164,6 +168,7 @@
       line-height: 1.4;
       margin-bottom: 1rem;
     }
+
     #btn-saber-mas {
       display: block;
       margin: 0 auto 3rem auto;
@@ -246,8 +251,18 @@
       user-select: none;
       z-index: 2;
       position: relative;
-      background-color: var(--blue-base);
-      color: #fff2e5;
+    }
+    footer {
+      background-color: #0762ac; /* Azul base */
+      color: #fff2e5; /* Blanco suave para texto */
+      padding: 1rem 0;
+      margin-top: auto;
+      text-align: center;
+      font-size: 0.9rem;
+      user-select: none;
+      position: relative;
+      z-index: 2;
+
       margin-bottom: 0.3rem;
     }
     /* Responsive */
@@ -433,7 +448,5 @@
 
 </body>
 </html>
-
-
 
 
